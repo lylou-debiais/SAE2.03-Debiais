@@ -10,10 +10,16 @@
   <body>
     <header id="header"></header>
 
-    <section id="content"></section>
+    <h1>Streaming</h1>
+    <section class = "content" id="content"></section>
 
     <script type="module">
       import { NavBar } from "./component/NavBar/script.js";
+      import {Movie} from "./component/Movie/movie.js";
+      import { DataMovie } from "./data/dataMovie.js";
+      console.log(DataMovie.request());
+
+
 
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
@@ -28,6 +34,7 @@
 
       C.start = function () {
         V.renderNavBar("C.handlerAbout()");
+        V.renderMovie()
       };
 
       // Vue (contient tout ce qui est relatif à l'affichage)
@@ -43,7 +50,27 @@
       V.renderNavBar = function (hAbout) {
         let header = document.querySelector("#header");
         header.innerHTML = NavBar.format(hAbout);
+
+       
       };
+
+      V.renderMovie = async function () {
+        let content = document.querySelector("#content");
+        const movies = await DataMovie.request();
+       // const movies = []; pour tester l'affichage de la page sans film
+        console.log(movies);
+        if (movies.length === 0) {
+         content.innerHTML = Movie.formatNoMovie();
+         return;
+        }
+        let html = "";
+        for (let movie of movies) {
+          html += Movie.format(movie.name, movie.image);
+
+        }
+        content.innerHTML = html;
+      };
+      
 
       C.start(); // Démarre l'application
     </script>

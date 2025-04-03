@@ -5,3 +5,20 @@
 @import "./utilities.css" layer(utilities);
 
 @import "../component/NavBar/style.css" layer(components);
+@import "../component/Movie/movie.css" layer(main);
+
+
+.content{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    height: fit-content;
+}
+
+/* .container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  } */

@@ -18,5 +18,17 @@
  *  Pour pouvoir utiliser les fonctions qui y sont déclarées et qui permettent
  *  de faire des opérations sur les données stockées en base de données.
  */
-require("model.php");
+
+ require("model.php");
+
+
+ function readController(){
+    
+    $movie = getMovies();
+    return $movie;
+}
+
+
+
+
 
