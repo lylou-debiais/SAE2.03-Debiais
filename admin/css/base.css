@@ -5,3 +5,8 @@
 @import "./utilities.css" layer(utilities);
 
 @import "../component/Log/style.css" layer(components);
+@import "../component/NewMovie/newmovie.css" ;
+
+body {
+    background-color: rgb(0, 0, 0);
+}

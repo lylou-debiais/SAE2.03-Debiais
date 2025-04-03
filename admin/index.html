@@ -8,14 +8,19 @@
   </head>
   <body>
     <section id="log"></section>
+    <section id="newmovie"></section>
+
 
     <script type="module">
       import { Log } from "./component/Log/script.js";
+      import { NewMovie } from "./component/NewMovie/newmovie.js";
+      import { DataMovie } from "./data/dataMovie.js";
 
       window.C = {};
 
       C.start = function () {
         V.renderLog("Démarrage de l'application");
+        V.renderNewMovie();
       };
 
       window.V = {};
@@ -23,6 +28,10 @@
       V.renderLog = function (txt) {
         let content = document.querySelector("#log");
         content.innerHTML = Log.format(txt);
+      };
+      V.renderNewMovie = function () {
+        let content = document.querySelector("#newmovie");
+        content.innerHTML = NewMovie.format();
       };
 
       C.start();
