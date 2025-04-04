@@ -28,6 +28,34 @@
     return $movie;
 }
 
+function postController(){
+    // Vérification des paramètres de la requête
+    if (!isset($_REQUEST['name']) || !isset($_REQUEST['year']) || !isset($_REQUEST['description']) || 
+        !isset($_REQUEST['image']) || !isset($_REQUEST['trailer']) || !isset($_REQUEST['id_category']) ||
+        !isset($_REQUEST['min_age']) || !isset($_REQUEST['director']) || !isset($_REQUEST['length'])) {
+        echo json_encode('[error] Missing parameters');
+        http_response_code(400); // 400 == "Bad request"
+        exit();
+    }
+
+
+    // Récupération des paramètres de la requête
+
+
+    $name = $_REQUEST['name'];
+    $year = $_REQUEST['year'];
+    $description = $_REQUEST['description'];
+    $image = $_REQUEST['image'];
+    $trailer = $_REQUEST['trailer'];
+    $id_category = $_REQUEST['id_category'];
+    $min_age = $_REQUEST['min_age'];
+    $director = $_REQUEST['director'];
+    $length = $_REQUEST['length'];
+
+    $result = postMovies($name, $year, $description, $image, $trailer, $id_category, $min_age, $director, $length);
+    return $result;
+}
+
 
 
 

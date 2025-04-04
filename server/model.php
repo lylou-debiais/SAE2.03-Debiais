@@ -37,3 +37,36 @@ function getMovies() {
 
     return $res; // Retourne les résultats
 }
+
+
+function postMovies($name, $year, $description, $image, $trailer, $id_category, $min_age, $director, $length) {
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+
+    // Requête SQL pour envoyé un film
+    $sql = "INSERT INTO Movie (name, year, description, image, trailer, id_category, min_age, director, length) VALUES (:name, :year, :description, :image, :trailer, :id_category, :min_age, :director, :length)";
+
+    // Prépare la requête SQL
+    $stmt = $cnx->prepare($sql);
+
+    
+    // Lie les paramètres à la valeur
+    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':year', $year);
+    $stmt->bindParam(':description', $description);
+    $stmt->bindParam(':image', $image);
+    $stmt->bindParam(':trailer', $trailer);
+    $stmt->bindParam(':id_category', $id_category);
+    $stmt->bindParam(':min_age', $min_age);
+    $stmt->bindParam(':director', $director);
+    $stmt->bindParam(':length', $length);
+
+    // Exécute la requête SQL
+    $stmt->execute();
+    // Récupère le nombre de lignes affectées par la requête
+    $res = $stmt->rowCount();
+    return $res; // Retourne le nombre de lignes affectées
+    // Si la requête a réussi, le nombre de lignes affectées sera 1.
+    // Si la requête a échoué, le nombre de lignes affectées sera 0.
+
+}
