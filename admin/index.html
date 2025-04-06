@@ -36,6 +36,10 @@
             let minage = fd.get("min_age");
             let director = fd.get("director");
             let length = fd.get("length");
+            if (!name || !director || isNaN(year) || isNaN(length) || !description || !category || !image || !trailer || isNaN(minage) || minage < 0) {
+              V.renderLog("Erreur : veuillez remplir tous les champs correctement.");
+              return;
+            }
             let res = await DataMovie.post(fd);
             console.log(res);
             if (res == 1) {

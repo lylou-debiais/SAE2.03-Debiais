@@ -10,13 +10,14 @@
   <body>
     <header id="header"></header>
 
-    <h1>Streaming</h1>
+    <h1  class="streaming">Streaming</h1>
     <section class = "content" id="content"></section>
 
     <script type="module">
       import { NavBar } from "./component/NavBar/script.js";
       import {Movie} from "./component/Movie/movie.js";
-      import { DataMovie } from "./data/dataMovie.js";
+      import { DataMovie, DataMovieDetail } from "./data/dataMovie.js";
+      import { MovieDetail } from "./component/MovieDetail/moviedetail.js";
       console.log(DataMovie.request());
 
 
@@ -32,9 +33,15 @@
         );
       };
 
+      C.handlerMovie = async function (id) {
+        console.log(id)
+        V.renderMovieDetail(id);
+      }
+
       C.start = function () {
-        V.renderNavBar("C.handlerAbout()");
+        V.renderNavBar("C.handlerAbout()", "V.renderMovie()");
         V.renderMovie()
+       
       };
 
       // Vue (contient tout ce qui est relatif à l'affichage)
@@ -47,12 +54,33 @@
        * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
        * formaté par le composant NavBar.
        */
-      V.renderNavBar = function (hAbout) {
+      V.renderNavBar = function (hAbout, Retour) {
         let header = document.querySelector("#header");
-        header.innerHTML = NavBar.format(hAbout);
+        header.innerHTML = NavBar.format(hAbout, Retour);
 
        
       };
+
+      V.renderMovieDetail = async function ($id) {
+        let content = document.querySelector("#content");
+        let movie =await DataMovieDetail.request($id);
+        movie = movie[0];
+        console.log(movie);
+        let html = "";
+        html += MovieDetail.format(
+          movie.name,
+          movie.director,
+          movie.category_name,
+          movie.year,
+          movie.min_age,
+          movie.image,
+          movie.description,
+          movie.trailer
+        );
+        content.innerHTML = html;
+               
+      }
+    
 
       V.renderMovie = async function () {
         let content = document.querySelector("#content");
@@ -65,11 +93,12 @@
         }
         let html = "";
         for (let movie of movies) {
-          html += Movie.format(movie.name, movie.image);
+            html += Movie.format("C.handlerMovie(" + movie.id + ")", movie.name, movie.image);
 
         }
         content.innerHTML = html;
       };
+      
       
 
       C.start(); // Démarre l'application

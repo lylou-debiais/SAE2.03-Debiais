@@ -18,6 +18,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    transition: all 0.2s;
   }
   .image-placeholder {
 
@@ -31,10 +32,20 @@ body {
     font-size: 16px;
   }
 
+
+
   .nomovie {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     font-size: 20px;
+  }
+
+
+  .card:hover {
+    color: #e076c9;
+    box-shadow: 0px 4px 8px #e076c9;
+    transform: translateY(-5px);
+    transition: all 0.2s;
   }

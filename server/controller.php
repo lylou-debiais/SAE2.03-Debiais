@@ -28,6 +28,22 @@
     return $movie;
 }
 
+function readMovieDetailController(){
+    
+    // Vérification des paramètres de la requête
+    if (!isset($_REQUEST['id'])) {
+        echo json_encode('[error] Missing parameters');
+        http_response_code(400); // 400 == "Bad request"
+        exit();
+    }
+
+    // Récupération des paramètres de la requête
+    $id = $_REQUEST['id'];
+
+    $movie = getMovieDetail($id);
+    return $movie;
+}
+
 function postController(){
     // Vérification des paramètres de la requête
     if (!isset($_REQUEST['name']) || !isset($_REQUEST['year']) || !isset($_REQUEST['description']) || 

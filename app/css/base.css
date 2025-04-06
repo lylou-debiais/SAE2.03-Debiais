@@ -6,8 +6,11 @@
 
 @import "../component/NavBar/style.css" layer(components);
 @import "../component/Movie/movie.css" layer(main);
+@import "../component/MovieDetail/moviedetail.css" layer(components);
 
-
+.streaming{
+    color: #e076c9;
+}
 .content{
     display: flex;
     flex-direction: row;
@@ -17,8 +20,21 @@
     height: fit-content;
 }
 
-/* .container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  } */
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1c1c1c;
+    color: #f5f5f5;
+}
+
+/* Main container */
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #262626;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}

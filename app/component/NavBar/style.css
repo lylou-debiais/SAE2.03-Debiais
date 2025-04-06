@@ -1,21 +1,31 @@
 .navbar {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 3rem;
+  padding: 1rem 3rem; 
+  width: 100%;
   color: var(--color-fg);
   background-color: var(--color-bg);
+  transition: all 0.3s ease;
 
   .navbar__item {
-    --_offset: 0.2rem;
     padding: 0.5rem 1rem;
-    text-decoration: underline;
-    text-decoration-thickness: 0.1rem;
-    text-underline-offset: var(--_offset);
     cursor: pointer;
-    transition: text-underline-offset 0.2s ease-in-out;
+
     &:hover {
-      --_offset: 0.5rem;
+      background-color: var(--color-hover, #e076c9);
+      color: var(--color-text-hover, #000);
+      transition: all 0.3s ease;
     }
   }
 }
+
+
+.navbar__list {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+

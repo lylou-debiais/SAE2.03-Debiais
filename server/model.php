@@ -28,7 +28,7 @@ function getMovies() {
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
 
     // Requête SQL pour récupérer les noms et images des films
-    $sql = "SELECT name, image FROM Movie";
+    $sql = "SELECT id, name, image FROM Movie ";
 
     $answer = $cnx->query($sql);
 
@@ -37,6 +37,25 @@ function getMovies() {
 
     return $res; // Retourne les résultats
 }
+
+function getMovieDetail($id) {
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+
+    // Requête SQL pour récupérer les noms et images des films
+    $sql = "SELECT Movie.*, Category.name AS category_name 
+            FROM Movie 
+            INNER JOIN Category ON Movie.id_category = Category.id 
+            WHERE Movie.id = $id";
+
+    $answer = $cnx->query($sql);
+
+    // Récupère les résultats de la requête sous forme d'objets
+    $res = $answer->fetchAll(PDO::FETCH_OBJ);
+
+    return $res; // Retourne les résultats
+}
+
 
 
 function postMovies($name, $year, $description, $image, $trailer, $id_category, $min_age, $director, $length) {
