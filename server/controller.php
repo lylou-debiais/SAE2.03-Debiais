@@ -43,6 +43,26 @@ function readMovieDetailController(){
     $movie = getMovieDetail($id);
     return $movie;
 }
+function readCategoryController(){
+      
+
+    $movie = getCategory();
+    return $movie;
+}
+
+function readMovieCategoryController(){
+    // Vérification des paramètres de la requête
+    if (!isset($_REQUEST['cat'])) {
+        echo json_encode('[error] Missing parameters');
+        http_response_code(400); // 400 == "Bad request"
+        exit();
+    }
+    // Récupération des paramètres de la requête
+    $id = $_REQUEST['cat'];
+      
+    $movie = getMovieCategory($id);
+    return $movie;
+}
 
 function postController(){
     // Vérification des paramètres de la requête

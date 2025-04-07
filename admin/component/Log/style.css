@@ -8,7 +8,7 @@
   background-color: var(--color-bg);
   border-style: solid;
   border-color: var(--color-fg);
-  border-width: 1px;
+  border-width: 0.0625rem;
   overflow: hidden;
   .log__list {
     font-size: smaller;

@@ -2,5 +2,10 @@
   <ul class="navbar__list">
     <li class="navbar__item" onclick="{{hAbout}}">About</li>
     <li class="navbar__item" onclick="{{Retour}}">Tout les films</li>
+    <select class="navbar__item" id="category_select" onchange="C.handlerSelectCategory()">
+     
+      {{categories}}
+    </select>
+      
   </ul>
 </nav>

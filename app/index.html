@@ -15,10 +15,11 @@
 
     <script type="module">
       import { NavBar } from "./component/NavBar/script.js";
-      import {Movie} from "./component/Movie/movie.js";
-      import { DataMovie, DataMovieDetail } from "./data/dataMovie.js";
+      import { Movie } from "./component/Movie/movie.js";
+      import { DataMovie, DataMovieDetail,DataCategory,  DataMovieCategory } from "./data/dataMovie.js";
       import { MovieDetail } from "./component/MovieDetail/moviedetail.js";
-      console.log(DataMovie.request());
+      
+      
 
 
 
@@ -33,13 +34,35 @@
         );
       };
 
-      C.handlerMovie = async function (id) {
+      C.handlerMovie = async function (id, category) {
         console.log(id)
         V.renderMovieDetail(id);
+        
       }
 
-      C.start = function () {
-        V.renderNavBar("C.handlerAbout()", "V.renderMovie()");
+      C.handlerSelectCategory = async function () {
+        // Récupère le id de la catégorie
+        let form = document.querySelector("#category_select");
+        let categoryId = form.value;
+        
+        // Faire une requête pour récupérer les films de cette catégorie
+        const movies = await DataMovieCategory.request(categoryId);
+        console.log("Films récupérés :", movies);
+        let content = document.querySelector("#content");
+        if (movies.length === 0) {
+          content.innerHTML = Movie.formatNoMovie();
+          return;
+        }
+        let html = "";
+        for (let movie of movies) {
+          html += Movie.format("C.handlerMovie(" + movie.id + ")", movie.name, movie.image);
+        }
+        content.innerHTML = html;
+      }
+
+      C.start = async function () {
+        let category = await DataCategory.request();
+        V.renderNavBar("C.handlerAbout()", "V.renderMovie()", category  );
         V.renderMovie()
        
       };
@@ -54,9 +77,9 @@
        * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
        * formaté par le composant NavBar.
        */
-      V.renderNavBar = function (hAbout, Retour) {
+      V.renderNavBar = function (hAbout, Retour, category) {
         let header = document.querySelector("#header");
-        header.innerHTML = NavBar.format(hAbout, Retour);
+        header.innerHTML = NavBar.format(hAbout, Retour, category);
 
        
       };
@@ -80,6 +103,18 @@
         content.innerHTML = html;
                
       }
+      // V.renderMovieCategory = async function ($category) {
+      //   let content = document.querySelector("#content");
+      //   let movie =await DataMovieCategory.request($category);
+      //   movie = movie[0];
+      //   console.log(movie);
+      //   let html = "";
+      //   html += MovieCategory.format(
+
+      //   );
+      //   content.innerHTML = html;
+               
+      // }
     
 
       V.renderMovie = async function () {

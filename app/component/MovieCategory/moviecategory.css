@@ -1,0 +1,26 @@
+.category {
+    margin-bottom: 2.5rem;
+}
+
+.category h2 {
+    margin-bottom: 0.625rem;
+}
+
+.movie-list {
+    display: flex;
+    gap: 0.625rem;
+    flex-wrap: wrap;
+}
+
+.movie-card {
+    width: 9.375rem;
+    border: 0.0625rem solid #ccc;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    text-align: center;
+}
+
+.movie-card img {
+    width: 100%;
+    height: auto;
+}
