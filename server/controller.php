@@ -93,13 +93,6 @@ function postController(){
 }
 
 
-
-
-
-
-
-
-
 function postProfileController(){
     
     // if (!isset($_REQUEST['name']) || !isset($_REQUEST['age'])) {
@@ -115,4 +108,11 @@ function postProfileController(){
 
     $result = postProfile($name, $avatar, $age);
     return $result;
+}
+
+function readProfileController(){
+      
+
+    $profile = getProfile();
+    return $profile;
 }

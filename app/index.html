@@ -13,11 +13,14 @@
     <h1  class="streaming">Streaming</h1>
     <section class = "content" id="content"></section>
 
+
     <script type="module">
       import { NavBar } from "./component/NavBar/script.js";
       import { Movie } from "./component/Movie/movie.js";
       import { DataMovie, DataMovieDetail,DataCategory,  DataMovieCategory } from "./data/dataMovie.js";
       import { MovieDetail } from "./component/MovieDetail/moviedetail.js";
+      import { DataProfile } from "./data/dataProfile.js";
+    
       
       
 
@@ -60,11 +63,39 @@
         content.innerHTML = html;
       }
 
+
+      C.handlerSelectProfile = async function () {
+        // Récupère le id du profil
+        let form = document.querySelector("#profile_select");
+        let profileId = form.value;
+        
+        // Faire une requête pour récupérer les infos du profil
+        const profiles = await DataProfile.request(profileId);
+        console.log("Profils récupérés :", profiles);
+        let profileForm = document.querySelector("#profileform");
+        if (profiles.length === 0) {
+          profileForm.innerHTML = Profile.formatNoProfile();
+          return;
+        }
+        let html = "";
+        for (let profile of profiles) {
+          html += Profile.format("C.handlerProfile(" + profile.id + ")", profile.name, profile.image);
+        }
+        profileForm.innerHTML = html;
+      };
+
+      C.handlerProfile = async function (id) {
+        console.log(id);
+        V.renderProfile(id);
+      };
+
       C.start = async function () {
         let category = await DataCategory.request();
-        V.renderNavBar("C.handlerAbout()", "V.renderMovie()", category  );
-        V.renderMovie()
-       
+        let profiles = await DataProfile.request();
+        console.log(profiles);
+        V.renderNavBar("C.handlerAbout()", "V.renderMovie()", category,  profiles);
+        V.renderMovie();
+        
       };
 
       // Vue (contient tout ce qui est relatif à l'affichage)
@@ -77,9 +108,9 @@
        * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
        * formaté par le composant NavBar.
        */
-      V.renderNavBar = function (hAbout, Retour, category) {
+      V.renderNavBar = function (hAbout, Retour, category, profiles) {
         let header = document.querySelector("#header");
-        header.innerHTML = NavBar.format(hAbout, Retour, category);
+        header.innerHTML = NavBar.format(hAbout, Retour, category, profiles);
 
        
       };
@@ -133,6 +164,8 @@
         }
         content.innerHTML = html;
       };
+
+      
       
       
 

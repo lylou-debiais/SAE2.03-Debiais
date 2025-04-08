@@ -135,3 +135,17 @@ function postProfile($name, $avatar, $age) {
     return $stmt->rowCount();
 }
 
+function getProfile() {
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+
+    // Requête SQL pour récupérer les noms et images des films
+    $sql = "SELECT * FROM Profile";
+
+    $answer = $cnx->query($sql);
+
+    // Récupère les résultats de la requête sous forme d'objets
+    $res = $answer->fetchAll(PDO::FETCH_OBJ);
+
+    return $res; // Retourne les résultats
+}
