@@ -92,6 +92,11 @@
         console.log(avatar);
         console.log(age);
         let res = await DataProfile.post(fd);
+        if (res == 1) {
+          V.renderLog("Le profil a été sauvegardé avec succès");
+        } else {
+          V.renderLog("Erreur lors de l'enregistrement du profil.");
+        }
         return res;
       }
 
