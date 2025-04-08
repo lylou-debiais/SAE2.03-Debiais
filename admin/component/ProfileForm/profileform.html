@@ -1,0 +1,25 @@
+
+  <div class="container">
+    <h1>Créer un nouveau profil</h1>
+    <form id="formulaire_profile">
+      <label for="name">Nom du profil<span>*</span> :</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="avatar">Avatar (URL de l'image) :</label>
+      <input type="url" id="avatar" name="avatar" />
+
+      <label for="age">Restriction d'âge<span>*</span> :</label>
+      <select id="age" name="age" required>
+        <option value="">--Sélectionnez--</option>
+        <option value="0">Tous publics</option>
+        <option value="12">12+</option>
+        <option value="16">16+</option>
+        <option value="18">18+</option>
+      </select>
+
+      <input id="button__profile" onclick="{{handlerSubmit}}" type="button" value="Update" name="todo">   
+    </form>
+
+    <div id="message"></div>
+  </div>
+

@@ -96,3 +96,23 @@ function postController(){
 
 
 
+
+
+
+
+function postProfileController(){
+    
+    // if (!isset($_REQUEST['name']) || !isset($_REQUEST['age'])) {
+    //     echo json_encode('[error] Missing parameters');
+    //     http_response_code(400);
+    //     exit();
+    // }
+    
+
+    $name = $_REQUEST['name'];
+    $age = $_REQUEST['age'];
+    $avatar = isset($_REQUEST['avatar']) ? $_REQUEST['avatar'] : null;
+
+    $result = postProfile($name, $avatar, $age);
+    return $result;
+}

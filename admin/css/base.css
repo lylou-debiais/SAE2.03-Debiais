@@ -6,9 +6,10 @@
 
 @import "../component/Log/style.css" layer(components);
 @import "../component/NewMovie/newmovie.css" layer(components);
+@import "../component/ProfileForm/profileform.css" layer(components);
 
 body {
-    background-color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
     display: flex;
     flex-direction: column;
     justify-content: center;

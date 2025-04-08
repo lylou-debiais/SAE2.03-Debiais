@@ -121,3 +121,17 @@ function postMovies($name, $year, $description, $image, $trailer, $id_category, 
 
 }
 
+
+function postProfile($name, $avatar, $age) {
+
+
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    $sql = "INSERT INTO Profile (nom, avatar, age) VALUES (:nom, :avatar, :age)";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':nom', $name);
+    $stmt->bindParam(':avatar', $avatar);
+    $stmt->bindParam(':age', $age);
+    $stmt->execute();
+    return $stmt->rowCount();
+}
+

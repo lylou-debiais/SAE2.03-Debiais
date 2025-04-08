@@ -9,18 +9,22 @@
   <body>
     <section id="log"></section>
     <section id="newmovie"></section>
+    <section id="profileform"></section>
 
 
     <script type="module">
       import { Log } from "./component/Log/script.js";
       import { NewMovie } from "./component/NewMovie/newmovie.js";
+      import { ProfileForm } from "./component/ProfileForm/profileform.js";
       import { DataMovie } from "./data/dataMovie.js";
+      import { DataProfile } from "./data/dataProfile.js";
 
       window.C = {};
 
       C.start = function () {
         V.renderLog("Démarrage de l'application");
         V.renderNewMovie();
+        V.renderProfileForm();
       };
 
       C.handlerSelect = async function(){
@@ -38,6 +42,13 @@
             let length = fd.get("length");
             if (!name || !director || isNaN(year) || isNaN(length) || !description || !category || !image || !trailer || isNaN(minage) || minage < 0) {
               V.renderLog("Erreur : veuillez remplir tous les champs correctement.");
+              const buttonNewMovie = document.querySelector("#button__newmovie");
+                  if (buttonNewMovie) {
+                    const errorMsg = document.createElement("p");
+                    errorMsg.textContent = "Tous les champs doivent être complétés";
+                    errorMsg.style.color = "red";
+                    buttonNewMovie.parentNode.insertBefore(errorMsg, buttonNewMovie);
+                  }
               return;
             }
             let res = await DataMovie.post(fd);
@@ -49,11 +60,40 @@
                 
                 if (!name || !year || !description || !image || !trailer || !category || !minage || !director || !length) {
                   V.renderLog("Erreur : Un ou plusieurs champs obligatoires sont manquants.");
+                  
                 } else {
                   V.renderLog("Erreur : Problème de connexion ou autre erreur lors de l'ajout du film.");
                 }
             }
       };
+
+      C.handlerSelectProfile = async function(){
+        let formulaire = document.querySelector('#formulaire_profile');
+        console.log(formulaire);
+        let fd = new FormData(formulaire);
+        let name = fd.get("name");
+        let age = parseInt(fd.get("age"), 10);
+        let avatar = fd.get("avatar");
+        if (avatar == "") {
+          avatar = null;
+        }        
+        if (!name || !age) {
+          V.renderLog("Erreur : veuillez remplir tous les champs correctement.");
+          const buttonProfile = document.querySelector("#button__profile");
+          if (buttonProfile) {
+            const errorMsg = document.createElement("p");
+            errorMsg.textContent = "Tous les champs obligatoire doivent être complétés";
+            errorMsg.style.color = "red";
+            buttonProfile.parentNode.insertBefore(errorMsg, buttonProfile);
+          }
+          return;
+        }
+        console.log(name);
+        console.log(avatar);
+        console.log(age);
+        let res = await DataProfile.post(fd);
+        return res;
+      }
 
       window.V = {};
 
@@ -67,6 +107,11 @@
         content.innerHTML = NewMovie.format("C.handlerSelect()");
       };
 
+      V.renderProfileForm = function () {
+        let content = document.querySelector("#profileform");
+        content.innerHTML = ProfileForm.format("C.handlerSelectProfile()");
+        
+      };
       C.start();
     </script>
   </body>
