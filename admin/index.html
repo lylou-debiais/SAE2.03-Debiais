@@ -8,9 +8,14 @@
   </head>
   <body>
     <section id="log"></section>
-    <section id="newmovie"></section>
-    <section id="profileform"></section>
-    <section id="modifprofileform"></section>
+    <section class = "formulaire">
+      
+      <section id="newmovie"></section>
+      <section id="profileform"></section>
+      <section id="modifprofileform"></section>
+      
+    </section>
+    
 
 
     <script type="module">
@@ -80,12 +85,13 @@
       C.handlerModifSelect = async function(){
         let form = document.querySelector('#modifform');
         let fd = new FormData(form);
-        let profileId = fd.get("modif_select");
-        console.log(profileId);
+        let select = document.querySelector("#modif_select");
+        let profileId = select.value;
+        fd.append("id", profileId);
         let name = fd.get("name");
         let age = parseInt(fd.get("age"), 10);
         let avatar = fd.get("avatar");
-        console.log(age);
+        
         if (avatar == "") {
           avatar = null;
         }        
@@ -100,6 +106,7 @@
           }
           return;
         }
+        console.log(profileId);
         console.log(name);
         console.log(avatar);
         console.log(age);
