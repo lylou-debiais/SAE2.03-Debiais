@@ -141,6 +141,38 @@ function postProfile($name, $avatar, $age) {
     $stmt->execute();
     return $stmt->rowCount();
 }
+/**
+ * Met à jour les informations d'un profil utilisateur dans la base de données.
+ *
+ * @param int $id L'ID du profil à modifier.
+ * @param string $name Le nouveau nom pour le profil.
+ * @param string $avatar Le nouveau chemin vers l'avatar.
+ * @param int $age Le nouvel âge.
+ * @return int Le nombre de lignes affectées par la requête de mise à jour.
+ */
+function ModifProfile($id, $name, $avatar, $age) {
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+
+    // Requête SQL de mise à jour du profil
+    $sql = "UPDATE Profile SET nom = :name, avatar = :avatar, age = :age WHERE id = :id";
+
+    // Prépare la requête SQL
+    $stmt = $cnx->prepare($sql);
+
+    // Lie les paramètres aux valeurs
+    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':avatar', $avatar);
+    $stmt->bindParam(':age', $age);
+    $stmt->bindParam(':id', $id);
+
+    // Exécute la requête SQL
+    $stmt->execute();
+
+    // Retourne le nombre de lignes affectées
+    return $stmt->rowCount();
+}
+
 
 function getProfile() {
     // Connexion à la base de données
@@ -156,6 +188,21 @@ function getProfile() {
 
     return $res; // Retourne les résultats
 }
+
+function getProfileId($id) {
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+
+    // Requête SQL pour récupérer les noms et images des films
+    $sql = "SELECT * FROM Profile WHERE id = :id";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_OBJ); // Retourne les résultats
+}
+
+
 
 function getAge($id) {
     // Connexion à la base de données

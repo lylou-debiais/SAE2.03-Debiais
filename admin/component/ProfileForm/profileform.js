@@ -13,17 +13,8 @@ ProfileForm.format = function(handlerSubmit) {
   return html;
 };
 
-/**
- * Auto-fill the profile form fields with the data from a profile object.
- * @param {Object} profil - The profile data.
- * @param {string} profil.name - The name.
- * @param {string} profil.avatar - The URL of the avatar.
- * @param {number} profil.age - The profile age.
- */
-ProfileForm.autoFill = function(profil) {
-  document.getElementById('name').value = profil.name || "";
-  document.getElementById('avatar').value = profil.avatar || "";
-  document.getElementById('age').value = profil.age || "";
-};
+
 
 export { ProfileForm };
+
+

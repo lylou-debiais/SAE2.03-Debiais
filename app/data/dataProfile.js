@@ -17,6 +17,8 @@ DataProfile.request = async function(){
 }
 
 
+
+
 DataProfile.getage = async function($id){
     let answer = await fetch(HOST_URL + "/server/script.php?todo=age&id="+$id);
     let data = await answer.json();

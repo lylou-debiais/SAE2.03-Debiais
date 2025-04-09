@@ -117,6 +117,21 @@ function readProfileController(){
     return $profile;
 }
 
+function readProfileIdController(){
+    
+    // Vérification des paramètres de la requête
+    if (!isset($_REQUEST['id'])) {
+        echo json_encode('[error] Missing parameters');
+        http_response_code(400); // 400 == "Bad request"
+        exit();
+    }
+
+    $id = $_REQUEST['id'];
+
+    $profile = getProfileId($id);
+    return $profile;
+}
+
 function readAgeController(){
     
     // Vérification des paramètres de la requête
@@ -163,3 +178,21 @@ function readMovieAgeCat(){
     return $movies;
 }
 
+function ModifProfileController(){
+    
+    // Vérification des paramètres de la requête
+    if (!isset($_REQUEST['id']) || !isset($_REQUEST['name']) || !isset($_REQUEST['age'])) {
+        echo json_encode('[error] Missing parameters');
+        http_response_code(400); // 400 == "Bad request"
+        exit();
+    }
+
+    // Récupération des paramètres de la requête
+    $id = $_REQUEST['id'];
+    $name = $_REQUEST['name'];
+    $age = $_REQUEST['age'];
+    $avatar = isset($_REQUEST['avatar']) ? $_REQUEST['avatar'] : null;
+
+    $result = ModifProfile($id, $name, $avatar, $age);
+    return $result;
+}

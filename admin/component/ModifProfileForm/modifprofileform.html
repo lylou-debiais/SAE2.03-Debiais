@@ -1,0 +1,31 @@
+
+  <div class="container">
+    <h1>Modifier un profil</h1>
+    <form id="modifform">
+      <label for="name">Profil choisi<span>*</span> :</label>
+      <select class="navbar__item" id="modif_select" onchange="{{handlerSubmit}}">
+        <option value="0">Sélectionner un profil</option>
+        {{profiles}}
+      </select>
+      <label for="name">Nom du profil<span>*</span> :</label>
+      <input type="text" id="modifname" name="name" required />
+      
+
+      <label for="avatar">Avatar (URL de l'image) :</label>
+      <input type="url" id="modifavatar" name="avatar" />
+
+      <label for="age">Restriction d'âge<span>*</span> :</label>
+      <select id="modifage" name="age" required>
+        <option value="-1">--Sélectionnez--</option>
+        <option value="1">Tous publics</option>
+        <option value="12">12+</option>
+        <option value="16">16+</option>
+        <option value="18">18+</option>
+      </select>
+
+      <input id="button__profile" onclick="{{handlerModifProfile}}" type="button" value="Update" name="todo">   
+    </form>
+
+    <div id="message"></div>
+  </div>
+

@@ -10,22 +10,33 @@
     <section id="log"></section>
     <section id="newmovie"></section>
     <section id="profileform"></section>
+    <section id="modifprofileform"></section>
 
 
     <script type="module">
       import { Log } from "./component/Log/script.js";
       import { NewMovie } from "./component/NewMovie/newmovie.js";
       import { ProfileForm } from "./component/ProfileForm/profileform.js";
+      import { ModifProfileForm } from "./component/ModifProfileForm/modifprofileform.js";
       import { DataMovie } from "./data/dataMovie.js";
       import { DataProfile } from "./data/dataProfile.js";
 
       window.C = {};
 
-      C.start = function () {
+      C.start = async function () {
+        let profile = await C.getprofile();
+        console.log(profile);
         V.renderLog("Démarrage de l'application");
         V.renderNewMovie();
         V.renderProfileForm();
+        V.renderModifProfileForm(profile);
+
       };
+
+      C.getprofile = async function(){
+        let res = await DataProfile.get();
+        return res;
+      }
 
       C.handlerSelect = async function(){
             let form = document.querySelector('#addMovie__form');
@@ -66,6 +77,36 @@
             }
       };
 
+      C.handlerModifSelect = async function(){
+        let form = document.querySelector('#modifform');
+        let fd = new FormData(form);
+        let profileId = fd.get("modif_select");
+        console.log(profileId);
+        let name = fd.get("name");
+        let age = parseInt(fd.get("age"), 10);
+        let avatar = fd.get("avatar");
+        console.log(age);
+        if (avatar == "") {
+          avatar = null;
+        }        
+        if (!name || age == NaN || age < 0) {
+          V.renderLog("Erreur : veuillez remplir tous les champs correctement.");
+          const buttonProfile = document.querySelector("#button__profile");
+          if (buttonProfile) {
+            const errorMsg = document.createElement("p");
+            errorMsg.textContent = "Tous les champs obligatoire doivent être complétés";
+            errorMsg.style.color = "red";
+            buttonProfile.parentNode.insertBefore(errorMsg, buttonProfile);
+          }
+          return;
+        }
+        console.log(name);
+        console.log(avatar);
+        console.log(age);
+        let res = await DataProfile.update(fd);
+        return res;
+      }
+
       C.handlerSelectProfile = async function(){
         let formulaire = document.querySelector('#formulaire_profile');
         console.log(formulaire);
@@ -73,10 +114,11 @@
         let name = fd.get("name");
         let age = parseInt(fd.get("age"), 10);
         let avatar = fd.get("avatar");
+        console.log(age);
         if (avatar == "") {
           avatar = null;
         }        
-        if (!name || !age) {
+        if (!name || age == NaN || age < 0) {
           V.renderLog("Erreur : veuillez remplir tous les champs correctement.");
           const buttonProfile = document.querySelector("#button__profile");
           if (buttonProfile) {
@@ -92,6 +134,16 @@
         console.log(age);
         let res = await DataProfile.post(fd);
         return res;
+      }
+
+      C.handlerModifProfile = async function () {
+        // Récupère le id du profil
+        let form = document.querySelector("#modif_select");
+        let profileId = form.value;
+
+        // Faire une requête pour récupérer les infos du profil (age)
+        const profile = await DataProfile.getid(profileId);
+        ModifProfileForm.autoFill(profile);
       }
 
       window.V = {};
@@ -110,6 +162,11 @@
         let content = document.querySelector("#profileform");
         content.innerHTML = ProfileForm.format("C.handlerSelectProfile()");
         
+      };
+
+      V.renderModifProfileForm = function (profile) {
+        let content = document.querySelector("#modifprofileform");
+        content.innerHTML = ModifProfileForm.format("C.handlerModifProfile()","C.handlerModifSelect()", profile);
       };
       C.start();
     </script>
