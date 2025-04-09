@@ -79,6 +79,18 @@ if ( isset($_REQUEST['todo']) ){
     case 'profile':
       $data = readProfileController();
       break;
+
+    case 'age':
+      $data = readAgeController();
+      break;
+
+    case 'getmovieage':
+      $data = readMovieAge();
+      break;
+
+    case 'getmovieagecat':
+      $data = readMovieAgeCat();
+      break;
       
     default: // il y a un paramètre todo mais sa valeur n'est pas reconnue/supportée
       echo json_encode('[error] Unknown todo value');

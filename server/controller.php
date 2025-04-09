@@ -116,3 +116,50 @@ function readProfileController(){
     $profile = getProfile();
     return $profile;
 }
+
+function readAgeController(){
+    
+    // Vérification des paramètres de la requête
+    if (!isset($_REQUEST['id'])) {
+        echo json_encode('[error] Missing parameters');
+        http_response_code(400); // 400 == "Bad request"
+        exit();
+    }
+
+    $id = $_REQUEST['id'];
+
+    $profile = getAge($id);
+    return $profile;
+}
+
+function readMovieAge(){
+    
+    // Vérification des paramètres de la requête
+    if (!isset($_REQUEST['age'])) {
+        echo json_encode('[error] Missing parameters');
+        http_response_code(400); // 400 == "Bad request"
+        exit();
+    }
+
+    $age = $_REQUEST['age'];
+
+    $movies = getmovieage($age);
+    return $movies;
+}
+
+function readMovieAgeCat(){
+    
+    // Vérification des paramètres de la requête
+    if (!isset($_REQUEST['age']) || !isset($_REQUEST['cat'])) {
+        echo json_encode('[error] Missing parameters');
+        http_response_code(400); // 400 == "Bad request"
+        exit();
+    }
+
+    $age = $_REQUEST['age'];
+    $cat = $_REQUEST['cat'];
+
+    $movies = getmovieagecat($age, $cat);
+    return $movies;
+}
+

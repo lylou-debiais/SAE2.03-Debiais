@@ -20,4 +20,6 @@ DataProfile.post = async function(fdata){
 }
 
 
+
+
 export {DataProfile};

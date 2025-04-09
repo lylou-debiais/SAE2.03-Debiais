@@ -20,6 +20,20 @@ DataMovie.request = async function(){
     return data;
 }
 
+DataMovie.requestbyage = async function($age){
+    let answer = await fetch(HOST_URL + "/server/script.php?todo=getmovieage&age="+$age);
+    let data = await answer.json();
+    return data;
+}
+
+DataMovie.requestbyagecat = async function($age, $cat){
+    let answer = await fetch(HOST_URL + "/server/script.php?todo=getmovieagecat&age="+$age+"&cat="+$cat);
+    let data = await answer.json();
+    return data;
+}
+
+
+
 DataMovieDetail.request = async function($id){
     // fetch permet d'envoyer une requête HTTP à l'URL spécifiée. 
     // L'URL est construite en concaténant HOST_URL à "/server/script.php?direction=" et la valeur de la variable dir. 

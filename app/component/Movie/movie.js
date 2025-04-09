@@ -4,6 +4,9 @@ let template = await templateFile.text();
 let template2File = await fetch("./component/Movie/nomovie.html");
 let template2 = await template2File.text();
 
+let template3File = await fetch("./component/Movie/nomovieage.html");
+let template3 = await template3File.text();
+
 let Movie = {};
 
 Movie.format = function (handler, name, image) {
@@ -16,6 +19,11 @@ Movie.format = function (handler, name, image) {
 
 Movie.formatNoMovie = function () {
     let html = template2;
+    return html;
+}
+
+Movie.formatnoagemovie = function () {
+    let html = template3;
     return html;
 }
 

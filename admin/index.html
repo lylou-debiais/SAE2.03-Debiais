@@ -28,8 +28,7 @@
       };
 
       C.handlerSelect = async function(){
-        console.log("handlerSelect");
-      let form = document.querySelector('#addMovie__form');
+            let form = document.querySelector('#addMovie__form');
             let fd = new FormData(form);
             let name = fd.get("name");
             let year = fd.get("year");
@@ -92,13 +91,7 @@
         console.log(avatar);
         console.log(age);
         let res = await DataProfile.post(fd);
-        if (res == 1) {
-          V.renderLog("Le profil a été sauvegardé avec succès");
-        } else {
-          V.renderLog("Erreur lors de l'enregistrement du profil.");
-        }
         return res;
-
       }
 
       window.V = {};

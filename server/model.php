@@ -124,7 +124,14 @@ function postMovies($name, $year, $description, $image, $trailer, $id_category, 
 
 function postProfile($name, $avatar, $age) {
 
-
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    $sqlCheck = "SELECT * FROM Profile WHERE nom = :nom";
+    $stmtCheck = $cnx->prepare($sqlCheck);
+    $stmtCheck->bindParam(':nom', $name);
+    $stmtCheck->execute();
+    if ($stmtCheck->fetch(PDO::FETCH_ASSOC)) {
+        return 0;
+    }
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
     $sql = "INSERT INTO Profile (nom, avatar, age) VALUES (:nom, :avatar, :age)";
     $stmt = $cnx->prepare($sql);
@@ -148,4 +155,44 @@ function getProfile() {
     $res = $answer->fetchAll(PDO::FETCH_OBJ);
 
     return $res; // Retourne les résultats
+}
+
+function getAge($id) {
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+
+    // Requête SQL pour récupérer les noms et images des films
+    $sql = "SELECT age FROM Profile WHERE id = :id";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_OBJ)->age; // Retourne l'âge
+}
+
+function getmovieage($age) {
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+
+    // Requête SQL pour récupérer les noms et images des films
+    $sql = "SELECT * FROM Movie WHERE min_age <= :age";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':age', $age);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_OBJ); // Retourne les résultats
+}
+
+function getmovieagecat($age, $cat) {
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+
+    // Requête SQL pour récupérer les noms et images des films
+    $sql = "SELECT * FROM Movie WHERE min_age <= :age AND id_category = :cat";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':age', $age);
+    $stmt->bindParam(':cat', $cat);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_OBJ); // Retourne les résultats
 }

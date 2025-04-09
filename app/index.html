@@ -47,6 +47,24 @@
         // Récupère le id de la catégorie
         let form = document.querySelector("#category_select");
         let categoryId = form.value;
+
+        let profile = document.querySelector("#profile_select");
+        let profileId = profile.value;
+
+        if (profileId != 0) {
+          const profile = await DataProfile.getage(profileId);
+          const movies = await DataMovie.requestbyagecat(profile, categoryId);
+          let content = document.querySelector("#content");
+          if (movies.length === 0) {
+            content.innerHTML = Movie.formatnoagemovie();
+            return;
+          } 
+          let html = "";
+          for (let movie of movies) {
+            html += Movie.format("C.handlerMovie(" + movie.id + ")", movie.name, movie.image);
+          }
+          content.innerHTML = html;
+        }
         
         // Faire une requête pour récupérer les films de cette catégorie
         const movies = await DataMovieCategory.request(categoryId);
@@ -68,20 +86,27 @@
         // Récupère le id du profil
         let form = document.querySelector("#profile_select");
         let profileId = form.value;
+
+        // Faire une requête pour récupérer les infos du profil (age)
+        const profile = await DataProfile.getage(profileId);
+        const movies = await DataMovie.requestbyage(profile);
+        console.log("Films récupérés :", movies);
         
-        // Faire une requête pour récupérer les infos du profil
-        const profiles = await DataProfile.request(profileId);
-        console.log("Profils récupérés :", profiles);
-        let profileForm = document.querySelector("#profileform");
-        if (profiles.length === 0) {
-          profileForm.innerHTML = Profile.formatNoProfile();
+        
+        let content = document.querySelector("#content");
+        if (movies.length === 0) {
+          content.innerHTML = Movie.formatNoMovie();
           return;
         }
         let html = "";
-        for (let profile of profiles) {
-          html += Profile.format("C.handlerProfile(" + profile.id + ")", profile.name, profile.image);
+        for (let movie of movies) {
+          html += Movie.format("C.handlerMovie(" + movie.id + ")", movie.name, movie.image);
         }
-        profileForm.innerHTML = html;
+        content.innerHTML = html;
+
+          
+
+        
       };
 
       C.handlerProfile = async function (id) {
