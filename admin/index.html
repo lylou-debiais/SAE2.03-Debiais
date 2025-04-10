@@ -94,23 +94,25 @@
         
         if (avatar == "") {
           avatar = null;
-        }        
-        if (!name || age == NaN || age < 0) {
+        }
+        if (!name || isNaN(age) || age < 0) {
           V.renderLog("Erreur : veuillez remplir tous les champs correctement.");
-          const buttonProfile = document.querySelector("#button__profile");
-          if (buttonProfile) {
+          const buttonModifProfile = document.querySelector("#button__modifprofile");
+          if (buttonModifProfile) {
             const errorMsg = document.createElement("p");
-            errorMsg.textContent = "Tous les champs obligatoire doivent être complétés";
+            errorMsg.textContent = "Tous les champs doivent être complétés";
             errorMsg.style.color = "red";
-            buttonProfile.parentNode.insertBefore(errorMsg, buttonProfile);
+            buttonModifProfile.parentNode.insertBefore(errorMsg, buttonModifProfile);
           }
           return;
         }
-        console.log(profileId);
-        console.log(name);
-        console.log(avatar);
-        console.log(age);
+        
         let res = await DataProfile.update(fd);
+        if (res == 1) {
+          V.renderLog("Le profil a été mis à jour avec succès.");
+        } else {
+          V.renderLog("Erreur lors de la mise à jour du profil.");
+        }
         return res;
       }
 
@@ -121,27 +123,29 @@
         let name = fd.get("name");
         let age = parseInt(fd.get("age"), 10);
         let avatar = fd.get("avatar");
-        console.log(age);
         if (avatar == "") {
           avatar = null;
-        }        
-        if (!name || age == NaN || age < 0) {
+        }
+        if (!name || isNaN(age) || age < 0) {
           V.renderLog("Erreur : veuillez remplir tous les champs correctement.");
           const buttonProfile = document.querySelector("#button__profile");
           if (buttonProfile) {
             const errorMsg = document.createElement("p");
-            errorMsg.textContent = "Tous les champs obligatoire doivent être complétés";
+            errorMsg.textContent = "Tous les champs doivent être complétés";
             errorMsg.style.color = "red";
             buttonProfile.parentNode.insertBefore(errorMsg, buttonProfile);
           }
           return;
         }
-        console.log(name);
-        console.log(avatar);
-        console.log(age);
+        
         let res = await DataProfile.post(fd);
+        if (res == 1) {
+          V.renderLog("Le profil a été créé avec succès.");
+        } else {
+          V.renderLog("Erreur lors de la création du profil.");
+        }
         return res;
-      }
+            }
 
       C.handlerModifProfile = async function () {
         // Récupère le id du profil
