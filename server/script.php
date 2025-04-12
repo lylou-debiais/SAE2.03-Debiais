@@ -100,6 +100,14 @@ if ( isset($_REQUEST['todo']) ){
       $data = ModifProfileController();
       break;
 
+    case 'favoris':
+      $data = readFavorisController();
+      break;
+
+    case 'addfavoris':
+      $data = postFavorisController();
+      break;
+
       
     default: // il y a un paramètre todo mais sa valeur n'est pas reconnue/supportée
       echo json_encode('[error] Unknown todo value');

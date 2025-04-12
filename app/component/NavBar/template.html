@@ -1,13 +1,18 @@
 <nav class="navbar font-sans">
-  <ul class="navbar__list">
-    <li class="navbar__item" onclick="{{hAbout}}">About</li>
-    <li class="navbar__item" onclick="{{Retour}}">Tout les films</li>
-    <select class="navbar__item" id="category_select" onchange="C.handlerSelectCategory()">
-      {{categories}}
-    </select>
-    <select class="navbar__item" id="profile_select" onchange="C.handlerSelectProfile()">
-      <option value="0">Sélectionner un profil</option>
-      {{profiles}}
-    </select>
+  <h1  class="streaming">Streaming</h1>
+  <ul class="navbar__list ">
+    <div class= "navbar__left">
+        <li class="navbar__item" onclick="{{Retour}}">Tout les films</li>
+        <select class="navbar__item" id="category_select" onchange="C.handlerSelectCategory()">
+          {{categories}}
+        </select>
+    </div>
+    <li class="navbar__item" onclick="{{Favoris}}">Vos Favoris</li>
+    <div class="navbar__right">
+        <select class="navbar__item" id="profile_select" onchange="C.handlerSelectProfile()">
+          <option value="0">Sélectionner un profil</option>
+          {{profiles}}
+        </select>
+    </div>
   </ul>
 </nav>

@@ -141,6 +141,29 @@ function postProfile($name, $avatar, $age) {
     $stmt->execute();
     return $stmt->rowCount();
 }
+
+
+function postFavoris($id_profile, $id_movie) {
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+
+    // Requête SQL pour envoyé un film
+    $sql = "INSERT INTO Favoris (id_profils, id_movie) VALUES (:id_profils, :id_movie)";
+
+    // Prépare la requête SQL
+    $stmt = $cnx->prepare($sql);
+
+    // Lie les paramètres à la valeur
+    $stmt->bindParam(':id_profils', $id_profile);
+    $stmt->bindParam(':id_movie', $id_movie);
+
+    // Exécute la requête SQL
+    $stmt->execute();
+    // Récupère le nombre de lignes affectées par la requête
+    $res = $stmt->rowCount();
+    return $res; // Retourne le nombre de lignes affectées
+}
+
 /**
  * Met à jour les informations d'un profil utilisateur dans la base de données.
  *
@@ -242,4 +265,21 @@ function getmovieagecat($age, $cat) {
     $stmt->execute();
 
     return $stmt->fetchAll(PDO::FETCH_OBJ); // Retourne les résultats
+}
+
+
+function  getFavoris($id){
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+
+    // Requête SQL pour récupérer les noms et images des films
+    $sql = "SELECT Movie.id, Movie.name, Movie.image
+            FROM Favoris 
+            INNER JOIN Movie ON Favoris.id_movie = Movie.id 
+            WHERE Favoris.id_profils = :id";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_OBJ); // Retourne les résultats
 }

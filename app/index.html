@@ -9,8 +9,6 @@
 
   <body>
     <header id="header"></header>
-
-    <h1  class="streaming">Streaming</h1>
     <section class = "content" id="content"></section>
 
 
@@ -20,6 +18,7 @@
       import { DataMovie, DataMovieDetail,DataCategory,  DataMovieCategory } from "./data/dataMovie.js";
       import { MovieDetail } from "./component/MovieDetail/moviedetail.js";
       import { DataProfile } from "./data/dataProfile.js";
+      import { DataFavoris } from "./data/dataFavoris.js";
     
       
       
@@ -87,6 +86,7 @@
         let form = document.querySelector("#profile_select");
         let profileId = form.value;
 
+
         // Faire une requête pour récupérer les infos du profil (age)
         const profile = await DataProfile.getage(profileId);
         const movies = await DataMovie.requestbyage(profile);
@@ -104,10 +104,30 @@
         }
         content.innerHTML = html;
 
-          
 
         
       };
+
+      C.handlerFavoris = async function (id){
+        if (id == 0) {
+          alert("Veuillez choisir un profil");
+          return;
+        }
+        const containerElement = document.querySelector('.container');
+        const containerId = containerElement ? containerElement.id : null;
+        let fd = new FormData();
+        fd.append("id_profil", id);
+        fd.append("id_movie", containerId);
+        const svgElement = containerElement.querySelector('#coeur');
+        if (svgElement) {
+          svgElement.style.fill = 'pink';
+        }
+
+        DataFavoris.add(fd);
+
+
+      }
+
 
       C.handlerProfile = async function (id) {
         console.log(id);
@@ -117,8 +137,10 @@
       C.start = async function () {
         let category = await DataCategory.request();
         let profiles = await DataProfile.request();
+        
+
         console.log(profiles);
-        V.renderNavBar("C.handlerAbout()", "V.renderMovie()", category,  profiles);
+        V.renderNavBar("V.renderMovie()", category,  profiles, "V.renderFavoris()");
         V.renderMovie();
         
       };
@@ -133,9 +155,9 @@
        * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
        * formaté par le composant NavBar.
        */
-      V.renderNavBar = function (hAbout, Retour, category, profiles) {
+      V.renderNavBar = function (Retour, category, profiles, Favoris) {
         let header = document.querySelector("#header");
-        header.innerHTML = NavBar.format(hAbout, Retour, category, profiles);
+        header.innerHTML = NavBar.format( Retour, category, profiles, Favoris);
 
        
       };
@@ -143,10 +165,13 @@
       V.renderMovieDetail = async function ($id) {
         let content = document.querySelector("#content");
         let movie =await DataMovieDetail.request($id);
+        let profile = document.querySelector("#profile_select");
+        let profileId = profile.value;
         movie = movie[0];
         console.log(movie);
         let html = "";
         html += MovieDetail.format(
+          movie.id,
           movie.name,
           movie.director,
           movie.category_name,
@@ -154,7 +179,8 @@
           movie.min_age,
           movie.image,
           movie.description,
-          movie.trailer
+          movie.trailer,
+          profileId
         );
         content.innerHTML = html;
                
@@ -190,7 +216,27 @@
         content.innerHTML = html;
       };
 
-      
+      V.renderFavoris = async function () {
+        let content = document.querySelector("#content");
+        let form = document.querySelector("#profile_select");
+        let id = form.value;
+        let favoris = await DataFavoris.request(id);
+        if (!Array.isArray(favoris)) {
+          favoris = [favoris];
+        }
+        console.log(favoris);
+        if (favoris == '[error] Controller returns false') {
+         content.innerHTML = Movie.formatNoMovie();
+         return;
+        }
+        let html = "";
+        for (let movie of favoris) {
+            html += Movie.format("C.handlerMovie(" + movie.id + ")", movie.name, movie.image);
+
+        }
+        content.innerHTML = html;
+        
+      }
       
       
 

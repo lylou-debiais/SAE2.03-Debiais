@@ -5,12 +5,10 @@
 @import "./utilities.css" layer(utilities);
 
 @import "../component/NavBar/style.css" layer(components);
-@import "../component/Movie/movie.css" layer(main);
+@import "../component/Movie/movie.css" layer(components);
 @import "../component/MovieDetail/moviedetail.css" layer(components);
 
-.streaming{
-    color: #e076c9;
-}
+
 .content{
     display: flex;
     flex-direction: row;
@@ -38,3 +36,5 @@ body {
     border-radius: 0.625rem;
     box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
 }
+
+

@@ -12,10 +12,10 @@ let NavBar_Category = {};
 let NavBar_Profile = {};
 
 
-NavBar.format = function (hAbout, Retour, category, profile) {
+NavBar.format = function (Retour, category, profile, Favoris) {
   let html = template;
-  html = html.replace("{{hAbout}}", hAbout);
   html = html.replace("{{Retour}}", Retour);
+  html = html.replace("{{Favoris}}", Favoris);
 
   let categoriesHTML = "";
   for (let i = 0; i < category.length; i++) {
