@@ -229,3 +229,20 @@ function postFavorisController(){
     $result = postFavoris($id_profil, $id_movie);
     return $result;
 }
+
+function deleteFavorisController(){
+    
+    // Vérification des paramètres de la requête
+    if (!isset($_REQUEST['id_profil']) || !isset($_REQUEST['id_movie'])) {
+        echo json_encode('[error] Missing parameters');
+        http_response_code(400); // 400 == "Bad request"
+        exit();
+    }
+
+    // Récupération des paramètres de la requête
+    $id_profil = $_REQUEST['id_profil'];
+    $id_movie = $_REQUEST['id_movie'];
+
+    $result = deleteFavoris($id_profil, $id_movie);
+    return $result;
+}

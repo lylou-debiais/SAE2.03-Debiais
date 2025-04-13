@@ -109,19 +109,37 @@
       };
 
       C.handlerFavoris = async function (id){
+
+        let containerElement = document.querySelector('.container');
+        let svgElement = containerElement.querySelector('#coeur');
+        
+        
+
+
         if (id == 0) {
           alert("Veuillez choisir un profil");
           return;
         }
-        const containerElement = document.querySelector('.container');
-        const containerId = containerElement ? containerElement.id : null;
+        
+        let containerId = containerElement ? containerElement.id : null;
+        
+        if (svgElement.style.fill == "pink") {
+          let fd = new FormData();
+          fd.append("id_profil", id);
+          fd.append("id_movie", containerId);
+          DataFavoris.delete(fd);
+          svgElement.style.fill = "";
+          alert("Le film a été supprimé des favoris");
+          return;
+        }
+
         let fd = new FormData();
         fd.append("id_profil", id);
         fd.append("id_movie", containerId);
-        const svgElement = containerElement.querySelector('#coeur');
-        if (svgElement) {
-          svgElement.style.fill = 'pink';
-        }
+        
+        
+        svgElement.style.fill = 'pink';
+        
 
         DataFavoris.add(fd);
         alert("Le film a été ajouté aux favoris");
@@ -165,9 +183,34 @@
 
       V.renderMovieDetail = async function ($id) {
         let content = document.querySelector("#content");
+
+        
+        
+        
+
         let movie =await DataMovieDetail.request($id);
         let profile = document.querySelector("#profile_select");
         let profileId = profile.value;
+        let favoris = await DataFavoris.request(profileId);
+
+
+        
+      
+        
+        let bool = false;
+        for (let favori of favoris) {
+          if (parseInt(movie[0].id) == parseInt(favori.id)) {
+            console.log("true");
+            bool = true;
+            break;
+          }
+        }
+        console.log(bool);
+        
+
+
+
+        console.log(favoris);
         movie = movie[0];
         console.log(movie);
         let html = "";
@@ -184,6 +227,12 @@
           profileId
         );
         content.innerHTML = html;
+        if (bool) {
+          const containerElement = document.querySelector('.container');
+          const svgElement = containerElement.querySelector('#coeur');
+          svgElement.style.fill = "pink";
+          return;
+        }
                
       }
       // V.renderMovieCategory = async function ($category) {
@@ -222,6 +271,18 @@
         let form = document.querySelector("#profile_select");
         let id = form.value;
         let favoris = await DataFavoris.request(id);
+
+        if (favoris.length == 0) {
+          content.innerHTML = Movie.formatNoMovieFavoris();
+          return;
+        }
+
+        if (id == 0) {
+          alert("Veuillez choisir un profil");
+          return;
+        }
+
+
         if (!Array.isArray(favoris)) {
           favoris = [favoris];
         }

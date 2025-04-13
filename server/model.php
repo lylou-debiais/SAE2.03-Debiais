@@ -281,5 +281,26 @@ function  getFavoris($id){
     $stmt->bindParam(':id', $id);
     $stmt->execute();
 
-    return $stmt->fetch(PDO::FETCH_OBJ); // Retourne les résultats
+    return $stmt->fetchAll(PDO::FETCH_OBJ); // Retourne les résultats
+}
+
+function deleteFavoris($id_profile, $id_movie) {
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+
+    // Requête SQL pour envoyé un film
+    $sql = "DELETE FROM Favoris WHERE id_profils = :id_profils AND id_movie = :id_movie";
+
+    // Prépare la requête SQL
+    $stmt = $cnx->prepare($sql);
+
+    // Lie les paramètres à la valeur
+    $stmt->bindParam(':id_profils', $id_profile);
+    $stmt->bindParam(':id_movie', $id_movie);
+
+    // Exécute la requête SQL
+    $stmt->execute();
+    // Récupère le nombre de lignes affectées par la requête
+    $res = $stmt->rowCount();
+    return $res; // Retourne le nombre de lignes affectées
 }
