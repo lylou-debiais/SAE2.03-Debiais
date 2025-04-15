@@ -304,3 +304,12 @@ function deleteFavoris($id_profile, $id_movie) {
     $res = $stmt->rowCount();
     return $res; // Retourne le nombre de lignes affectées
 }
+
+function getMovieEnAvant(){
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT id,name,image,description FROM Movie WHERE mise_en_avant = 1";
+    $stmt = $cnx->query($sql);
+    $stmt->execute();
+    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+    return $res; 
+}

@@ -10,6 +10,12 @@ let template3 = await template3File.text();
 let template4File = await fetch("./component/Movie/nomoviefavoris.html");
 let template4 = await template4File.text();
 
+let template5File = await fetch("./component/Movie/movieenavant.html");
+let template5 = await template5File.text();
+
+let template6File = await fetch("./component/Movie/nomovieenavant.html");
+let template6 = await template6File.text();
+
 let Movie = {};
 
 Movie.format = function (handler, name, image) {
@@ -32,6 +38,19 @@ Movie.formatnoagemovie = function () {
 
 Movie.formatNoMovieFavoris = function () {
     let html = template4;
+    return html;
+}
+
+Movie.formatMovieEnAvant = function (handler, name, image, description) {
+    let html = template5;
+    html = html.replace("{{handler}}", handler);
+    html = html.replace("{{name}}", name);
+    html = html.replace("{{image}}", image);
+    html = html.replace("{{description}}", description);
+    return html;
+}
+Movie.formatNoMovieEnAvant = function () {
+    let html = template6;
     return html;
 }
 

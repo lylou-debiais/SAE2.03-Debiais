@@ -9,21 +9,24 @@
 
   <body>
     <header id="header"></header>
-    <section class = "content" id="content"></section>
+    <h2 id ="title"></h2>
+    <section class = "misenavant" id="enavant">
+    
+    </section>
+    <h2 id="title2"></h2>
+    <section class = "content" id="content">
+      
+    </section>
 
 
     <script type="module">
       import { NavBar } from "./component/NavBar/script.js";
       import { Movie } from "./component/Movie/movie.js";
-      import { DataMovie, DataMovieDetail,DataCategory,  DataMovieCategory } from "./data/dataMovie.js";
+      import { DataMovie, DataMovieDetail,DataCategory,  DataMovieCategory, DataMovieEnAvant } from "./data/dataMovie.js";
       import { MovieDetail } from "./component/MovieDetail/moviedetail.js";
       import { DataProfile } from "./data/dataProfile.js";
       import { DataFavoris } from "./data/dataFavoris.js";
     
-      
-      
-
-
 
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
@@ -152,7 +155,7 @@
         console.log(id);
         V.renderProfile(id);
       };
-
+      
       C.start = async function () {
         let category = await DataCategory.request();
         let profiles = await DataProfile.request();
@@ -161,6 +164,7 @@
         console.log(profiles);
         V.renderNavBar("V.renderMovie()", category,  profiles, "V.renderFavoris()");
         V.renderMovie();
+        V.renderEnavant();
         
       };
 
@@ -183,6 +187,13 @@
 
       V.renderMovieDetail = async function ($id) {
         let content = document.querySelector("#content");
+
+        let misenavant = document.querySelector("#enavant");
+        misenavant.innerHTML = "";
+        let title = document.querySelector("#title");
+        title.innerHTML = "Détails du film";
+        let title2 = document.querySelector("#title2");
+        title2.innerHTML = "";
 
         
         
@@ -250,6 +261,13 @@
     
 
       V.renderMovie = async function () {
+
+        V.renderEnavant();
+        let title = document.querySelector("#title");
+        title.innerHTML = "Mise en avant";
+        let title2 = document.querySelector("#title2");
+        title2.innerHTML = "Films";
+
         let content = document.querySelector("#content");
         const movies = await DataMovie.request();
        // const movies = []; pour tester l'affichage de la page sans film
@@ -300,6 +318,23 @@
         
       }
       
+      V.renderEnavant = async function() {
+        let content = document.querySelector("#enavant");
+        const movies = await DataMovieEnAvant.request();
+
+       // const movies = []; pour tester l'affichage de la page sans film
+        console.log("ceci est un test", movies);
+        if (movies.length === 0) {
+         content.innerHTML = Movie.formatNoMovieEnAvant();
+         return;
+        }
+        let html = "";
+        for (let movie of movies) {
+            html += Movie.formatMovieEnAvant("C.handlerMovie(" + movie.id + ")", movie.name, movie.image, movie.description);
+
+        }
+        content.innerHTML = html;
+      }
       
 
       C.start(); // Démarre l'application

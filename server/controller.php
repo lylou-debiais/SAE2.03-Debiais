@@ -246,3 +246,9 @@ function deleteFavorisController(){
     $result = deleteFavoris($id_profil, $id_movie);
     return $result;
 }
+
+function readMovieEnAvantController(){
+
+    $result = getMovieEnAvant();
+    return $result;
+}

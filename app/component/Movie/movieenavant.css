@@ -1,0 +1,41 @@
+.cardenavant {
+    border: 0.075rem solid #000;
+    text-align: center;
+    padding: 0.75rem;
+    height: 22.5rem;
+    width: 13.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.image-placeholder--av {
+    max-height: 16.125rem;
+    background-color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.name--av {
+    font-size: 1rem;  /* unchanged */
+    margin: 0.3125rem 0;
+}
+
+.description--av {
+    font-size: 0.775rem;  /* unchanged */
+    padding: 0 0.375rem;
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cardenavant:hover {
+    color: #e076c9;
+    box-shadow: 0 0.3rem 0.6rem #e076c9;
+    transform: translateY(-0.375rem);
+    transition: all 0.2s;
+}
