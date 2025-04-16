@@ -11,11 +11,11 @@
     <header id="header"></header>
     <h2 id ="title"></h2>
     <section class = "misenavant" id="enavant">
-    
+      <div id = "carousel--miseenavant" class="carousel"></div>
     </section>
     <h2 id="title2"></h2>
     <section class = "content" id="content">
-      
+      <div id = "carousel" class="carousel"></div>
     </section>
 
 
@@ -56,7 +56,7 @@
         if (profileId != 0) {
           const profile = await DataProfile.getage(profileId);
           const movies = await DataMovie.requestbyagecat(profile, categoryId);
-          let content = document.querySelector("#content");
+          let content = document.querySelector("#carousel");
           if (movies.length === 0) {
             content.innerHTML = Movie.formatnoagemovie();
             return;
@@ -71,7 +71,7 @@
         // Faire une requête pour récupérer les films de cette catégorie
         const movies = await DataMovieCategory.request(categoryId);
         console.log("Films récupérés :", movies);
-        let content = document.querySelector("#content");
+        let content = document.querySelector("#carousel");
         if (movies.length === 0) {
           content.innerHTML = Movie.formatNoMovie();
           return;
@@ -96,7 +96,7 @@
         console.log("Films récupérés :", movies);
         
         
-        let content = document.querySelector("#content");
+        let content = document.querySelector("#carousel");
         if (movies.length === 0) {
           content.innerHTML = Movie.formatNoMovie();
           return;
@@ -188,7 +188,7 @@
       V.renderMovieDetail = async function ($id) {
         let content = document.querySelector("#content");
 
-        let misenavant = document.querySelector("#enavant");
+        let misenavant = document.querySelector("#carousel--miseenavant");
         misenavant.innerHTML = "";
         let title = document.querySelector("#title");
         title.innerHTML = "Détails du film";
@@ -268,7 +268,7 @@
         let title2 = document.querySelector("#title2");
         title2.innerHTML = "Films";
 
-        let content = document.querySelector("#content");
+        let content = document.querySelector("#carousel");
         const movies = await DataMovie.request();
        // const movies = []; pour tester l'affichage de la page sans film
         console.log(movies);
@@ -285,7 +285,7 @@
       };
 
       V.renderFavoris = async function () {
-        let content = document.querySelector("#content");
+        let content = document.querySelector("#carousel");
         let form = document.querySelector("#profile_select");
         let id = form.value;
         let favoris = await DataFavoris.request(id);
@@ -319,7 +319,7 @@
       }
       
       V.renderEnavant = async function() {
-        let content = document.querySelector("#enavant");
+        let content = document.querySelector("#carousel--miseenavant");
         const movies = await DataMovieEnAvant.request();
 
        // const movies = []; pour tester l'affichage de la page sans film

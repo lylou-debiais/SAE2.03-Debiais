@@ -19,6 +19,14 @@
     height: fit-content;
 }
 
+.carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
 /* Global Styles */
 body {
     font-family: Arial, sans-serif;
