@@ -1,63 +1,64 @@
 /* Custom scrollbar style for Webkit browsers */
 .carousel::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+  width: 8px;
+  height: 8px;
   }
   
   .carousel::-webkit-scrollbar-track {
-    background: #262626;
-    border-radius: 10px;
+  background: #2B2626;
+  border-radius: 10px;
   }
   
   .carousel::-webkit-scrollbar-thumb {
-    background: #e076c9;
-    border-radius: 10px;
+  background: #E7002F;
+  border-radius: 10px;
   }
   
   .carousel::-webkit-scrollbar-thumb:hover {
-    background: #f5f5f5;
+  background: #f5f5f5;
   }
   
   /* Carte (slide du carrousel) */
 
 .cardenavant {
-    border: 0.075rem solid #000;
-    text-align: center;
-    padding: 0.75rem;
-    height: 22.5rem;
-    width: 13.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: all 0.2s;
-    cursor: pointer;
+  border: 0.075rem solid #160F0F;
+  text-align: center;
+  padding: 0.75rem;
+  height: 22.5rem;
+  width: 13.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.2s;
+  cursor: pointer;
+  font-family: "Times New Roman", Times, serif;
 }
 
 .image-placeholder--av {
-    max-height: 16.125rem;
-    background-color: #e0e0e0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  max-height: 16.125rem;
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .name--av {
-    font-size: 1rem;  /* unchanged */
-    margin: 0.3125rem 0;
+  font-size: 1rem;  /* unchanged */
+  margin: 0.3125rem 0;
 }
 
 .description--av {
-    font-size: 0.775rem;  /* unchanged */
-    padding: 0 0.375rem;
-    flex-grow: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  font-size: 0.775rem;  /* unchanged */
+  padding: 0 0.375rem;
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .cardenavant:hover {
-    color: #e076c9;
-    box-shadow: 0 0.3rem 0.6rem #e076c9;
-    transform: translateY(-0.375rem);
-    transition: all 0.2s;
+  color: #E7002F;
+  box-shadow: 0 0.3rem 0.6rem #E7002F;
+  transform: translateY(-0.375rem);
+  transition: all 0.2s;
 }

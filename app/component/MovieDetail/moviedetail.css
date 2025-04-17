@@ -1,72 +1,49 @@
-/* Title section styles */
-.title-section {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1.25rem; /* 20px */
-    border-bottom: 0.0625rem solid #444; /* 1px */
-    padding-bottom: 0.625rem; /* 10px */
+.iframe{
+    width: 100vw;
+    height: 100vh;
+    border: none;
+    z-index: -1;
+}
+.content-overlay {
+    position: absolute;
+    top: 40rem;
+    left: 0;
+    height: 25rem; 
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    z-index: 10000;
+}
+.year, .min_age, .coeur  {
+    position: absolute;
+    top: 1rem;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
-.title-section > div:first-child {
-    flex: 1 1 60%;
+.coeur {
+    right: 8rem;
+}
+.year {
+    right: 4rem;
+}
+
+.min_age {
+    right: 2rem;
 }
 
 .title-section h2 {
     font-size: 2rem;
-    color: #e076c9;
-    margin: 0;
-    text-transform: uppercase;
+    font-weight: bold;
+    color: white;
 }
 
 .title-section p {
-    font-size: 1rem;
-    margin: 0.3125rem 0; /* 5px 0 */
-    color: #ccc;
+    font-size: 1.5rem;
+    color: white;
 }
 
-/* Year and minimum age styling */
-.year, .min_age {
-    background-color: #e076c9;
-    color: #1c1c1c;
-    padding: 0.3125rem 0.625rem; /* 5px 10px */
-    border-radius: 0.3125rem; /* 5px */
-    font-weight: bold;
-    margin-left: 0.625rem; /* 10px */
-    min-width: fit-content;
-}
-
-.year:hover, .min_age:hover {
-    background-color: #e076c9;
-}
-
-/* Image (affiche) styling */
-.affiche {
-    display: block;
-    max-width: 100%;
-    margin: 1.25rem auto; /* 20px auto */
-    border-radius: 0.625rem; /* 10px */
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3); /* 0 4px 8px */
-}
-
-/* Description styles */
-h3 {
-    color: #e076c9;
-    margin-top: 1.25rem; /* 20px */
-}
-
-.description {
-    font-size: 1.1rem;
-    line-height: 1.6;
-}
-
-/* Trailer iframe styles */
-iframe {
-    display: block;
-    max-width: 100%;
-    margin: 1.25rem auto; /* 20px auto */
-    border: none;
-    border-radius: 0.625rem; /* 10px */
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2); /* 0 4px 8px */
+.description_detail {
+    font-size: 1.5rem;
+    color: white;
 }

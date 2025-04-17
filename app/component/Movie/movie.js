@@ -18,11 +18,12 @@ let template6 = await template6File.text();
 
 let Movie = {};
 
-Movie.format = function (handler, name, image) {
+Movie.format = function (handler, name, image, description) {
     let html = template;
     html = html.replace("{{handler}}", handler);
     html = html.replace("{{name}}", name);
     html = html.replace("{{image}}", image);
+    html = html.replace("{{description}}", description);
     return html;
 }
 

@@ -25,11 +25,12 @@
     scroll-snap-type: x mandatory;
     gap: 1rem;
     padding: 1rem;
+    scrollbar-width: none;
   }
 
 /* Global Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Times New Roman", Times, serif;
     margin: 0;
     padding: 0;
     background-color: #1c1c1c;

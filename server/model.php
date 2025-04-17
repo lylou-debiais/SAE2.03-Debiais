@@ -27,8 +27,8 @@ function getMovies() {
     // Connexion à la base de données
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
 
-    // Requête SQL pour récupérer les noms et images des films
-    $sql = "SELECT id, name, image FROM Movie ";
+    // Requête SQL pour récupérer les id, nom, image et description des films
+    $sql = "SELECT id, name, image, description FROM Movie";
 
     $answer = $cnx->query($sql);
 

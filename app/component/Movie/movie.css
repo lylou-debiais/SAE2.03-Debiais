@@ -1,3 +1,6 @@
+body {
+  font-family: "Times New Roman", Times, serif;
+}
 
 /* Custom scrollbar style for Webkit browsers */
 .carousel::-webkit-scrollbar {
@@ -11,7 +14,7 @@
 }
 
 .carousel::-webkit-scrollbar-thumb {
-  background: #e076c9;
+  background: #E7002F;
   border-radius: 10px;
 }
 
@@ -32,6 +35,29 @@
   flex-direction: column;
   justify-content: space-between;
   transition: all 0.2s;
+}
+
+.description {
+  display: none;
+}
+
+.card:hover .description {
+  display: block;
+  position: absolute;
+  background-color: #000;
+  opacity: 0.7;
+  color: #fff;
+  padding: 0.625rem;
+  border-radius: 0.3125rem;
+  z-index: 1;
+  width: calc(100% - 1.25rem);
+  top: 0.625rem;
+  height: 13.4375rem;
+  left: 0.625rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
 }
 
 .image-placeholder {
@@ -55,9 +81,8 @@
 }
 
 .card:hover {
-  color: #e076c9;
-  box-shadow: 0rem 0.25rem 0.5rem #e076c9;
+  color: #E7002F;
+  box-shadow: 0rem 0.25rem 0.5rem #E7002F;
   transform: translateY(-0.3125rem);
   transition: all 0.2s;
 }
-

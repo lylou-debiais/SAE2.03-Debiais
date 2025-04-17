@@ -1,24 +1,25 @@
-<div id = "{{id}}" class="container">
-    
-    <div class="title-section">
-        <div>
-            <h2 id="title">{{name}}</h2>
-            <p id="director">{{director}}</p>
-            <p id="category">{{category}}</p>
-        </div>
-        <svg id="coeur" width="35" height="35" viewBox="0 0 24 24" stroke = "pink" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="C.handlerFavoris('{{profile_id}}')">
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
-                     C2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09
-                     C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5
-                     c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-        </svg>
-        <div class="year">{{year}}</div>
-        <div class="min_age">{{min_age}}</div>
+
+    <div id="{{id}}" class="video-background">
+        <iframe class="iframe" src="{{trailer}}" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+            <div class="content-overlay">
+                <div class="title-section">
+                    <h2 id="title">{{name}}</h2>
+                    <p id="director">{{director}}</p>
+                    <p id="category">{{category}}</p>
+                    <svg class="coeur" id="coeur" width="35" height="35" viewBox="0 0 24 24" stroke="red" fill="none"
+                        xmlns="http://www.w3.org/2000/svg" onclick="C.handlerFavoris('{{profile_id}}')">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
+                         C2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09
+                         C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5
+                         c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                    </svg>
+                    <div class="year">{{year}}</div>
+                    <div class="min_age">{{min_age}}</div>
+                </div>
+                <h3>Description</h3>
+                <p class="description_detail" id="film-description">{{description}}</p>
+            </div>
+        
     </div>
-    
-    <img class = "affiche" src="https://mmi.unilim.fr/~debiais7/SAE2.03-Debiais/server/images/{{image}}" alt="">
-    <h3>Description</h3>
-    <p class="description" id="film-description">{{description}}</p>
-    <h3>Trailer</h3>
-    <iframe width="560" height="315" src="{{trailer}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>

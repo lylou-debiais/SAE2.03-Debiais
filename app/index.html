@@ -186,7 +186,7 @@
       };
 
       V.renderMovieDetail = async function ($id) {
-        let content = document.querySelector("#content");
+        let content = document.querySelector("#carousel");
 
         let misenavant = document.querySelector("#carousel--miseenavant");
         misenavant.innerHTML = "";
@@ -278,7 +278,7 @@
         }
         let html = "";
         for (let movie of movies) {
-            html += Movie.format("C.handlerMovie(" + movie.id + ")", movie.name, movie.image);
+            html += Movie.format("C.handlerMovie(" + movie.id + ")", movie.name, movie.image, movie.description);
 
         }
         content.innerHTML = html;
