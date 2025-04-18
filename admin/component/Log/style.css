@@ -7,12 +7,12 @@
 
   background-color: var(--color-bg);
   border-style: solid;
-  border-color: var(--color-fg);
+  border-color: red;
   border-width: 0.0625rem;
   overflow: hidden;
   .log__list {
     font-size: smaller;
-    color: var(--color-accent);
+    color: red;
     overflow-y: scroll;
     .last {
       animation: fondu-en-entree 1s ease-in-out;
@@ -23,6 +23,8 @@
     }
   }
 }
+
+
 
 @keyframes fondu-en-entree {
   from {
